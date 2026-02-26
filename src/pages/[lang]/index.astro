@@ -1,0 +1,251 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import type { Locale } from '../../i18n/index';
+import { LOCALES } from '../../i18n/index';
+import { ui } from '../../i18n/ui';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ExperienceTimeline from '../../components/ExperienceTimeline.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import SkillsGrid from '../../components/SkillsGrid.astro';
+import { Icon } from 'astro-icon/components';
+import { formatDate } from '../../i18n/index';
+
+export const getStaticPaths = (async () => {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}) satisfies GetStaticPaths;
+
+const { lang } = Astro.params as unknown as { lang: Locale };
+const t = (key: keyof typeof ui['es']) => ui[lang][key] ?? ui['es'][key];
+
+// Fetch & filter content by lang subfolder
+const allExperience = await getCollection('experience', ({ id }: { id: string }) => id.startsWith(`${lang}/`));
+const allProjects   = await getCollection('projects',   ({ id }: { id: string }) => id.startsWith(`${lang}/`));
+const allSkills     = await getCollection('skills',     ({ id }: { id: string }) => id.startsWith(`${lang}/`));
+const allEducation  = await getCollection('education',  ({ id }: { id: string }) => id.startsWith(`${lang}/`));
+
+const sortedProjects   = [...allProjects].sort((a, b) => a.data.order - b.data.order);
+const sortedEducation  = [...allEducation].sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout lang={lang}>
+  <!-- ── Hero ──────────────────────────────────────────────────────────── -->
+  <section class="cv-container pt-20 pb-16">
+    <div class="flex flex-col gap-4 animate-slide-up">
+      <!-- Status pill -->
+      <div class="flex items-center gap-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style="background-color: var(--color-accent);"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2" style="background-color: var(--color-accent);"></span>
+        </span>
+        <span class="font-mono text-2xs" style="color: var(--color-text-muted);">
+          {t('hero.location')}
+        </span>
+      </div>
+
+      <!-- Name -->
+      <div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight leading-none mb-2">
+          Lucas Pintos
+        </h1>
+        <p class="text-lg sm:text-xl font-mono" style="color: var(--color-text-muted);">
+          {t('hero.role')}
+        </p>
+      </div>
+
+      <!-- About paragraph -->
+      <p class="text-sm sm:text-base max-w-2xl leading-relaxed" style="color: var(--color-text-muted);">
+        {t('about.body')}
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <a
+          href="#contacto"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all duration-150"
+          style="background-color: var(--color-text); color: var(--color-bg);"
+        >
+          <Icon name="lucide:mail" class="h-4 w-4" />
+          {t('hero.cta.contact')}
+        </a>
+        <a
+          href={`/${lang}/#experiencia`}
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-md border text-sm font-medium transition-all duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+          style="border-color: var(--color-border); color: var(--color-text);"
+        >
+          <Icon name="lucide:scroll-text" class="h-4 w-4" />
+          {t('hero.cta.resume')}
+        </a>
+        <a
+          href="https://www.linkedin.com/in/lucas-mateopintos"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+          style="border-color: var(--color-border);"
+        >
+          <Icon name="lucide:linkedin" class="h-4 w-4" />
+        </a>
+        <a
+          href="https://github.com/lucaspintos"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors duration-150 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+          style="border-color: var(--color-border);"
+        >
+          <Icon name="lucide:github" class="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="cv-container">
+    <div class="cv-divider" />
+  </div>
+
+  <!-- ── Experience ─────────────────────────────────────────────────────── -->
+  <section id="experiencia" class="cv-section cv-container" aria-labelledby="section-experience">
+    <h2 id="section-experience" class="cv-section-title">{t('experience.title')}</h2>
+    <ExperienceTimeline entries={allExperience} lang={lang} />
+  </section>
+
+  <div class="cv-container">
+    <div class="cv-divider" />
+  </div>
+
+  <!-- ── Projects ───────────────────────────────────────────────────────── -->
+  <section id="proyectos" class="cv-section cv-container" aria-labelledby="section-projects">
+    <h2 id="section-projects" class="cv-section-title">{t('projects.title')}</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {sortedProjects.map((project) => (
+        <ProjectCard project={project} lang={lang} />
+      ))}
+    </div>
+  </section>
+
+  <div class="cv-container">
+    <div class="cv-divider" />
+  </div>
+
+  <!-- ── Skills ─────────────────────────────────────────────────────────── -->
+  <section id="habilidades" class="cv-section cv-container" aria-labelledby="section-skills">
+    <h2 id="section-skills" class="cv-section-title">{t('skills.title')}</h2>
+    <SkillsGrid groups={allSkills} lang={lang} />
+  </section>
+
+  <div class="cv-container">
+    <div class="cv-divider" />
+  </div>
+
+  <!-- ── Education ──────────────────────────────────────────────────────── -->
+  <section id="educacion" class="cv-section cv-container" aria-labelledby="section-education">
+    <h2 id="section-education" class="cv-section-title">{t('education.title')}</h2>
+    <ul class="flex flex-col gap-4" aria-label={t('education.title')}>
+      {sortedEducation.map(async (entry) => {
+        const { Content } = await entry.render();
+        return (
+          <li class="cv-card flex flex-col sm:flex-row sm:items-start gap-3">
+            <div class="flex-1 min-w-0">
+              <h3 class="text-sm font-semibold">{entry.data.degree}</h3>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                {entry.data.institutionUrl ? (
+                  <a
+                    href={entry.data.institutionUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cv-link text-xs"
+                  >
+                    {entry.data.institution}
+                    <Icon name="lucide:arrow-up-right" class="h-3 w-3" />
+                  </a>
+                ) : (
+                  <span class="text-xs" style="color: var(--color-text-muted);">{entry.data.institution}</span>
+                )}
+                <span style="color: var(--color-border);">·</span>
+                <span class="text-xs" style="color: var(--color-text-muted);">{entry.data.location}</span>
+              </div>
+              <div class="text-xs mt-1">
+                <Content />
+              </div>
+            </div>
+            <div class="flex-shrink-0">
+              <span class="font-mono text-2xs" style="color: var(--color-text-muted);">
+                {formatDate(entry.data.startDate, lang)}
+                {' – '}
+                {entry.data.current
+                  ? t('education.present')
+                  : entry.data.endDate
+                    ? formatDate(entry.data.endDate, lang)
+                    : ''
+                }
+              </span>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+
+  <div class="cv-container">
+    <div class="cv-divider" />
+  </div>
+
+  <!-- ── Contact ────────────────────────────────────────────────────────── -->
+  <section id="contacto" class="cv-section cv-container" aria-labelledby="section-contact">
+    <h2 id="section-contact" class="cv-section-title">{t('contact.title')}</h2>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a
+        href="mailto:lucaspintos909@gmail.com"
+        class="cv-card flex items-center gap-3 hover:no-underline group"
+      >
+        <div
+          class="h-9 w-9 flex items-center justify-center rounded-md border flex-shrink-0"
+          style="border-color: var(--color-border);"
+        >
+          <Icon name="lucide:mail" class="h-4 w-4" style="color: var(--color-accent);" />
+        </div>
+        <div>
+          <p class="text-xs font-mono" style="color: var(--color-text-muted);">{t('contact.email')}</p>
+          <p class="text-sm font-medium group-hover:underline underline-offset-2">lucaspintos909@gmail.com</p>
+        </div>
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/lucas-mateopintos"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cv-card flex items-center gap-3 hover:no-underline group"
+      >
+        <div
+          class="h-9 w-9 flex items-center justify-center rounded-md border flex-shrink-0"
+          style="border-color: var(--color-border);"
+        >
+          <Icon name="lucide:linkedin" class="h-4 w-4" style="color: var(--color-accent);" />
+        </div>
+        <div>
+          <p class="text-xs font-mono" style="color: var(--color-text-muted);">{t('contact.linkedin')}</p>
+          <p class="text-sm font-medium group-hover:underline underline-offset-2">lucas-mateopintos</p>
+        </div>
+      </a>
+
+      <a
+        href="https://github.com/lucaspintos"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cv-card flex items-center gap-3 hover:no-underline group"
+      >
+        <div
+          class="h-9 w-9 flex items-center justify-center rounded-md border flex-shrink-0"
+          style="border-color: var(--color-border);"
+        >
+          <Icon name="lucide:github" class="h-4 w-4" style="color: var(--color-accent);" />
+        </div>
+        <div>
+          <p class="text-xs font-mono" style="color: var(--color-text-muted);">{t('contact.github')}</p>
+          <p class="text-sm font-medium group-hover:underline underline-offset-2">lucaspintos</p>
+        </div>
+      </a>
+    </div>
+  </section>
+</BaseLayout>

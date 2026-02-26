@@ -1,0 +1,18 @@
+---
+// Root index → redirect to default locale /es
+import { DEFAULT_LOCALE } from "../i18n/index";
+---
+
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="refresh" content={`0;url=/${DEFAULT_LOCALE}/`} />
+		<link rel="canonical" href={`/${DEFAULT_LOCALE}/`} />
+	</head>
+	<body>
+		<p>
+			Redirecting to <a href={`/${DEFAULT_LOCALE}/`}
+				>/{DEFAULT_LOCALE}/</a>
+		</p>
+	</body>
+</html>
