@@ -1,6 +1,7 @@
 ---
 title: "Software Developer – I+D+i"
 company: "Ceibal"
+companyLogo: "../../../assets/logo-ceibal.png"
 companyUrl: "https://ceibal.edu.uy"
 location: "Montevideo, Uruguay"
 startDate: 2022-09-01

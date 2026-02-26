@@ -1,6 +1,7 @@
 ---
 title: "Web Development Intern"
 company: "Facultad de Psicología, Universidad de la República"
+companyLogo: "../../../assets/logo-udelar.png"
 location: "Montevideo, Uruguay"
 startDate: 2022-04-01
 endDate: 2022-09-01

@@ -1,6 +1,7 @@
 ---
 title: "Jr. DevOps Engineer – Engineering"
 company: "Ceibal"
+companyLogo: "../../../assets/logo-ceibal.png"
 companyUrl: "https://ceibal.edu.uy"
 location: "Montevideo, Uruguay"
 startDate: 2025-01-01

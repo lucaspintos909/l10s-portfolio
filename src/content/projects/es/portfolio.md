@@ -3,7 +3,7 @@ title: "L10s Portfolio"
 description: "Portfolio moderno, bilingüe y estático construido con Astro 5, TypeScript y Tailwind CSS. Incluye rutas i18n, Content Collections y un sistema de diseño Geist UI."
 technologies: ["Astro", "TypeScript", "Tailwind CSS", "astro-icon"]
 demoUrl: "https://lucaspintos.vercel.app"
-githubUrl: "https://github.com/lucaspintos/l10s-portfolio"
+githubUrl: "https://github.com/lucaspintos909/l10s-portfolio"
 featured: true
 order: 1
 ---

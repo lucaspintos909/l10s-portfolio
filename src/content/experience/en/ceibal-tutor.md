@@ -1,6 +1,7 @@
 ---
 title: "Web Development Intern Tutor"
 company: "Ceibal"
+companyLogo: "../../../assets/logo-ceibal.png"
 companyUrl: "https://ceibal.edu.uy"
 location: "Montevideo, Uruguay"
 startDate: 2024-07-01
