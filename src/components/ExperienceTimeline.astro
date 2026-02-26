@@ -1,0 +1,102 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../i18n/index';
+import { ui } from '../i18n/ui';
+import { formatDate } from '../i18n/index';
+import SkillBadge from './SkillBadge.astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  entries: CollectionEntry<'experience'>[];
+  lang: Locale;
+}
+
+const { entries, lang } = Astro.props;
+const t = (key: keyof typeof ui['es']) => ui[lang][key] ?? ui['es'][key];
+
+const sorted = [...entries].sort((a, b) => a.data.order - b.data.order);
+---
+
+<ul class="relative flex flex-col gap-0" aria-label={t('experience.title')}>
+  {sorted.map(async (entry, idx) => {
+    const { Content } = await entry.render();
+    const isLast = idx === sorted.length - 1;
+    return (
+      <li class="relative flex gap-6 pb-10 last:pb-0">
+        <!-- Timeline track -->
+        <div class="relative flex flex-col items-center pt-1.5">
+          <!-- Dot -->
+          <div
+            class="relative z-10 h-2.5 w-2.5 rounded-full border-2 flex-shrink-0 mt-0.5"
+            style="border-color: var(--color-accent); background-color: var(--color-bg);"
+          />
+          <!-- Line -->
+          {!isLast && (
+            <div
+              class="flex-1 w-px mt-2"
+              style="background-color: var(--color-border);"
+            />
+          )}
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0 pb-2">
+          <!-- Header row -->
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-3">
+            <div>
+              <h3 class="text-sm font-semibold leading-snug">{entry.data.title}</h3>
+              <div class="flex items-center gap-1.5 mt-0.5">
+                {entry.data.companyUrl ? (
+                  <a
+                    href={entry.data.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="cv-link text-xs"
+                  >
+                    {entry.data.company}
+                    <Icon name="lucide:arrow-up-right" class="h-3 w-3" />
+                  </a>
+                ) : (
+                  <span class="text-xs" style="color: var(--color-text-muted);">{entry.data.company}</span>
+                )}
+                <span style="color: var(--color-border);">·</span>
+                <span class="text-xs" style="color: var(--color-text-muted);">{entry.data.location}</span>
+              </div>
+            </div>
+
+            <!-- Date range -->
+            <div class="flex items-center gap-1 flex-shrink-0">
+              <span class="font-mono text-2xs" style="color: var(--color-text-muted);">
+                {formatDate(entry.data.startDate, lang)}
+                {' – '}
+                {entry.data.current
+                  ? <span class="text-accent font-medium">{t('experience.present')}</span>
+                  : entry.data.endDate
+                    ? formatDate(entry.data.endDate, lang)
+                    : ''
+                }
+              </span>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div
+            class="text-sm prose prose-sm max-w-none mb-4"
+            style="color: var(--color-text-muted);"
+          >
+            <Content />
+          </div>
+
+          <!-- Tech badges -->
+          {entry.data.technologies.length > 0 && (
+            <div class="flex flex-wrap gap-1.5">
+              {entry.data.technologies.map((tech: string) => (
+                <SkillBadge name={tech} />
+              ))}
+            </div>
+          )}
+        </div>
+      </li>
+    );
+  })}
+</ul>

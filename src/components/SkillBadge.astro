@@ -1,0 +1,15 @@
+---
+interface Props {
+    name: string;
+    size?: "sm" | "md";
+}
+
+const { name, size = "sm" } = Astro.props;
+---
+
+<span
+    class:list={["tech-badge", size === "md" && "text-xs px-2.5 py-1"]}
+    title={name}
+>
+    {name}
+</span>

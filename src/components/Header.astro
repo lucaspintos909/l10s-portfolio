@@ -1,0 +1,165 @@
+---
+import type { Locale } from "../i18n/index";
+import { ui } from "../i18n/ui";
+import { getRelativeLocaleUrl, getAlternateLocale } from "../i18n/index";
+import { Icon } from "astro-icon/components";
+
+interface Props {
+    lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = (key: keyof typeof ui["es"]) => ui[lang][key] ?? ui["es"][key];
+const alternateLang = getAlternateLocale(lang);
+
+const navLinks = [
+    { key: "nav.about", href: "#sobre-mi" },
+    { key: "nav.experience", href: "#experiencia" },
+    { key: "nav.projects", href: "#proyectos" },
+    { key: "nav.skills", href: "#habilidades" },
+    { key: "nav.education", href: "#educacion" },
+    { key: "nav.contact", href: "#contacto" },
+] as const;
+---
+
+<header
+    id="site-header"
+    class="sticky top-0 z-50 w-full border-b transition-all duration-200"
+    style="border-color: var(--color-border); background-color: color-mix(in srgb, var(--color-bg) 80%, transparent);"
+>
+    <div class="cv-container">
+        <div class="flex h-14 items-center justify-between gap-4">
+            <!-- Logo / Name -->
+            <a
+                href={getRelativeLocaleUrl(lang)}
+                class="font-mono text-sm font-semibold tracking-tight hover:opacity-70 transition-opacity"
+                aria-label="Lucas Pintos – Home"
+            >
+                lp<span class="text-accent">.</span>dev
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav
+                class="hidden md:flex items-center gap-6"
+                aria-label="Main navigation"
+            >
+                {
+                    navLinks.map(({ key, href }) => (
+                        <a
+                            href={href}
+                            class="text-sm transition-colors duration-150 hover:text-accent"
+                            style="color: var(--color-text-muted);"
+                        >
+                            {t(key)}
+                        </a>
+                    ))
+                }
+            </nav>
+
+            <!-- Right controls -->
+            <div class="flex items-center gap-2">
+                <!-- Theme Toggle -->
+                <button
+                    id="theme-toggle"
+                    aria-label={t("theme.toggle")}
+                    class="flex h-8 w-8 items-center justify-center rounded-md border transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    style="border-color: var(--color-border);"
+                >
+                    <!-- Sun icon (shown in dark mode) -->
+                    <Icon name="lucide:sun" class="h-4 w-4 hidden dark:block" />
+                    <!-- Moon icon (shown in light mode) -->
+                    <Icon
+                        name="lucide:moon"
+                        class="h-4 w-4 block dark:hidden"
+                    />
+                </button>
+
+                <!-- Language Picker -->
+                <a
+                    id="lang-switcher"
+                    href={getRelativeLocaleUrl(alternateLang)}
+                    aria-label={`Switch to ${t("lang.switch")}`}
+                    class="flex h-8 items-center gap-1 px-2.5 rounded-md border text-xs font-mono font-medium transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    style="border-color: var(--color-border); color: var(--color-text-muted);"
+                >
+                    <Icon name="lucide:globe" class="h-3.5 w-3.5" />
+                    {t("lang.switch")}
+                </a>
+
+                <!-- Mobile menu button -->
+                <button
+                    id="mobile-menu-btn"
+                    aria-label="Open menu"
+                    aria-expanded="false"
+                    class="flex md:hidden h-8 w-8 items-center justify-center rounded-md border transition-colors duration-150 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    style="border-color: var(--color-border);"
+                >
+                    <Icon
+                        name="lucide:menu"
+                        class="h-4 w-4 block"
+                        id="menu-open-icon"
+                    />
+                    <Icon
+                        name="lucide:x"
+                        class="h-4 w-4 hidden"
+                        id="menu-close-icon"
+                    />
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav -->
+        <nav
+            id="mobile-menu"
+            class="hidden md:hidden border-t py-4 flex-col gap-3"
+            style="border-color: var(--color-border);"
+            aria-label="Mobile navigation"
+        >
+            {
+                navLinks.map(({ key, href }) => (
+                    <a
+                        href={href}
+                        class="text-sm py-1 transition-colors duration-150 hover:text-accent"
+                        style="color: var(--color-text-muted);"
+                    >
+                        {t(key)}
+                    </a>
+                ))
+            }
+        </nav>
+    </div>
+</header>
+
+<script>
+    // Theme toggle
+    const themeBtn = document.getElementById("theme-toggle");
+    themeBtn?.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const openIcon = document.getElementById("menu-open-icon");
+    const closeIcon = document.getElementById("menu-close-icon");
+
+    mobileBtn?.addEventListener("click", () => {
+        const isOpen = mobileMenu?.classList.toggle("hidden") === false;
+        mobileMenu?.classList.toggle("flex", isOpen);
+        mobileBtn.setAttribute("aria-expanded", String(isOpen));
+        openIcon?.classList.toggle("hidden", isOpen);
+        closeIcon?.classList.toggle("hidden", !isOpen);
+    });
+
+    // Close mobile menu on link click
+    mobileMenu?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+            mobileMenu.classList.add("hidden");
+            mobileMenu.classList.remove("flex");
+            mobileBtn?.setAttribute("aria-expanded", "false");
+            openIcon?.classList.remove("hidden");
+            closeIcon?.classList.add("hidden");
+        });
+    });
+</script>

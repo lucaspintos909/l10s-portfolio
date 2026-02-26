@@ -1,0 +1,101 @@
+---
+import "../styles/global.css";
+import type { Locale } from "../i18n/index";
+import { ui } from "../i18n/ui";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+    lang: Locale;
+    title?: string;
+    description?: string;
+    ogImage?: string;
+    canonicalUrl?: string;
+}
+
+const {
+    lang,
+    title = ui[lang]["meta.title"],
+    description = ui[lang]["meta.description"],
+    ogImage = "/og-image.png",
+    canonicalUrl = Astro.url.href,
+} = Astro.props;
+
+const alternateUrl = canonicalUrl.replace(
+    `/${lang}/`,
+    lang === "es" ? "/en/" : "/es/"
+);
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <!-- Primary SEO -->
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+
+        <!-- Hreflang alternates -->
+        <link
+            rel="alternate"
+            hreflang={lang === "es" ? "es-UY" : "en-US"}
+            href={canonicalUrl}
+        />
+        <link
+            rel="alternate"
+            hreflang={lang === "es" ? "en-US" : "es-UY"}
+            href={alternateUrl}
+        />
+        <link rel="alternate" hreflang="x-default" href={`${Astro.site}es/`} />
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+        <meta
+            property="og:locale"
+            content={lang === "es" ? "es_UY" : "en_US"}
+        />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta
+            name="twitter:image"
+            content={new URL(ogImage, Astro.site).href}
+        />
+
+        <!-- Slot for additional head elements -->
+        <slot name="head" />
+
+        <!-- Inline theme init script: prevents flash of wrong theme -->
+        <script is:inline>
+            (function () {
+                const stored = localStorage.getItem("theme");
+                const prefersDark = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+                if (stored === "dark" || (!stored && prefersDark)) {
+                    document.documentElement.classList.add("dark");
+                }
+            })();
+        </script>
+    </head>
+    <body class="min-h-screen flex flex-col">
+        <Header lang={lang} />
+        <main id="main-content" class="flex-1 animate-fade-in">
+            <slot />
+        </main>
+        <Footer lang={lang} />
+    </body>
+</html>
