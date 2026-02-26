@@ -1,0 +1,34 @@
+{
+    "category": "DevOps & Infraestructura",
+    "order": 1,
+    "items": [
+        {
+            "name": "Kubernetes",
+            "level": "advanced"
+        },
+        {
+            "name": "Docker",
+            "level": "advanced"
+        },
+        {
+            "name": "Bitbucket Pipelines",
+            "level": "advanced"
+        },
+        {
+            "name": "Prometheus",
+            "level": "intermediate"
+        },
+        {
+            "name": "Grafana",
+            "level": "intermediate"
+        },
+        {
+            "name": "OpenTelemetry",
+            "level": "intermediate"
+        },
+        {
+            "name": "CI/CD",
+            "level": "advanced"
+        }
+    ]
+}
