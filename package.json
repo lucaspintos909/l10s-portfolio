@@ -1,0 +1,21 @@
+{
+  "name": "l10s-portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/tailwind": "^6.0.2",
+    "@fontsource-variable/geist": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@iconify-json/lucide": "^1.2.94",
+    "astro": "^5.17.1",
+    "astro-icon": "^1.1.5",
+    "tailwindcss": "^3.4.19"
+  }
+}
