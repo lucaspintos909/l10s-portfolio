@@ -29,6 +29,7 @@ export const ui: Record<Locale, Record<string, string>> = {
 
         // ── Experience ────────────────────────────────────────────────────────
         'experience.title': 'Experiencia',
+        'experience.years': '3+ años',
         'experience.present': 'Presente',
         'experience.at': 'en',
 
@@ -87,6 +88,7 @@ export const ui: Record<Locale, Record<string, string>> = {
 
         // ── Experience ────────────────────────────────────────────────────────
         'experience.title': 'Experience',
+        'experience.years': '3+ years',
         'experience.present': 'Present',
         'experience.at': 'at',
 
