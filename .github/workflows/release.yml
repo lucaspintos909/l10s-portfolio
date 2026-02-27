@@ -1,0 +1,37 @@
+name: Generate Auto Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Necesario para crear tags y releases (asegúrate de que en GHA settings tenga Read and Write permissions)
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necesario para traer la historia y que la acción entienda los commits previos
+
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Al mergear, si encuentra un commit fix: suma Patch (0.0.X)
+          # Si encuentra feat: suma Minor (0.X.0)
+          # Si encuentra BREAKING CHANGE: suma Major (X.0.0)
+          default_bump: patch
+          release_branches: main
+
+      - name: Create a GitHub release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
