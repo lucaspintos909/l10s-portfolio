@@ -8,6 +8,7 @@ import type { Locale } from "../i18n/index";
 import { ui } from "../i18n/ui";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
     lang: Locale;
@@ -131,5 +132,6 @@ const alternateUrl = canonicalUrl.replace(
             <slot />
         </main>
         <Footer lang={lang} />
+        <Analytics />
     </body>
 </html>
