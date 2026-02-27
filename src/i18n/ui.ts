@@ -22,8 +22,10 @@ export const ui: Record<Locale, Record<string, string>> = {
 
         // ── About ─────────────────────────────────────────────────────────────
         'about.title': 'Sobre mí',
-        'about.body':
-            'Profesional de TI enfocado en la cultura DevOps, la automatización de procesos y la infraestructura escalable. Actualmente trabajo en el área de Ingeniería de Ceibal, colaborando en el despliegue, monitoreo y mantenimiento de servicios críticos. Con más de 2 años de experiencia previa como Software Developer Full-Stack, esta combinación de habilidades me permite colaborar estrechamente con equipos de desarrollo para crear flujos de trabajo más ágiles y seguros.',
+        'about.body1':
+            'Profesional de TI enfocado en la cultura DevOps, la automatización de procesos y la infraestructura escalable. Actualmente trabajo en el área de Ingeniería de Ceibal, colaborando en el despliegue, monitoreo y mantenimiento de servicios críticos.',
+        'about.body2':
+            'Con más de 2 años de experiencia previa como Software Developer Full-Stack, esta combinación de habilidades me permite colaborar estrechamente con equipos de desarrollo para crear flujos de trabajo más ágiles y seguros.',
 
         // ── Experience ────────────────────────────────────────────────────────
         'experience.title': 'Experiencia',
@@ -78,8 +80,10 @@ export const ui: Record<Locale, Record<string, string>> = {
 
         // ── About ─────────────────────────────────────────────────────────────
         'about.title': 'About',
-        'about.body':
-            'IT professional focused on DevOps culture, process automation, and scalable infrastructure. Currently working in the Engineering area at Ceibal, collaborating in the deployment, monitoring, and maintenance of critical services. With over 2 years of prior experience as a Full-Stack Software Developer, this combination of skills allows me to closely collaborate with development teams to create more agile and secure workflows.',
+        'about.body1':
+            'IT professional focused on DevOps culture, process automation, and scalable infrastructure. Currently working in the Engineering area at Ceibal, collaborating in the deployment, monitoring, and maintenance of critical services.',
+        'about.body2':
+            'With over 2 years of prior experience as a Full-Stack Software Developer, this combination of skills allows me to closely collaborate with development teams to create more agile and secure workflows.',
 
         // ── Experience ────────────────────────────────────────────────────────
         'experience.title': 'Experience',
