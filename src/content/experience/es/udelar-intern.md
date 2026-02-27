@@ -2,6 +2,7 @@
 title: "Pasante de Desarrollo Web"
 company: "Facultad de Psicología, Universidad de la República"
 companyLogo: "../../../assets/logo-udelar.png"
+companyUrl: "https://udelar.edu.uy/"
 location: "Montevideo, Uruguay"
 startDate: 2022-04-01
 endDate: 2022-09-01

@@ -109,7 +109,12 @@ const sortedEducation  = [...allEducation].sort((a, b) => a.data.order - b.data.
 
   <!-- ── Experience ─────────────────────────────────────────────────────── -->
   <section id="experiencia" class="cv-section cv-container" aria-labelledby="section-experience">
-    <h2 id="section-experience" class="cv-section-title">{t('experience.title')}</h2>
+    <h2 id="section-experience" class="cv-section-title flex items-center gap-3">
+      {t('experience.title')}
+      <span class="text-xs font-mono font-medium px-2 py-0.5 rounded-md border" style="color: var(--color-text-muted); border-color: var(--color-border); background-color: var(--color-bg);">
+        {t('experience.years')}
+      </span>
+    </h2>
     <ExperienceTimeline entries={allExperience} lang={lang} />
   </section>
 
