@@ -7,7 +7,6 @@ import { ui } from '../../i18n/ui';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ExperienceTimeline from '../../components/ExperienceTimeline.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import SkillsGrid from '../../components/SkillsGrid.astro';
 import { Icon } from 'astro-icon/components';
 import { formatDate } from '../../i18n/index';
 
@@ -21,7 +20,6 @@ const t = (key: keyof typeof ui['es']) => ui[lang][key] ?? ui['es'][key];
 // Fetch & filter content by lang subfolder
 const allExperience = await getCollection('experience', ({ id }: { id: string }) => id.startsWith(`${lang}/`));
 const allProjects   = await getCollection('projects',   ({ id }: { id: string }) => id.startsWith(`${lang}/`));
-const allSkills     = await getCollection('skills',     ({ id }: { id: string }) => id.startsWith(`${lang}/`));
 const allEducation  = await getCollection('education',  ({ id }: { id: string }) => id.startsWith(`${lang}/`));
 
 const sortedProjects   = [...allProjects].sort((a, b) => a.data.order - b.data.order);
@@ -122,16 +120,6 @@ const sortedEducation  = [...allEducation].sort((a, b) => a.data.order - b.data.
         <ProjectCard project={project} lang={lang} />
       ))}
     </div>
-  </section>
-
-  <div class="cv-container">
-    <div class="cv-divider" />
-  </div>
-
-  <!-- ── Skills ─────────────────────────────────────────────────────────── -->
-  <section id="habilidades" class="cv-section cv-container" aria-labelledby="section-skills">
-    <h2 id="section-skills" class="cv-section-title">{t('skills.title')}</h2>
-    <SkillsGrid groups={allSkills} lang={lang} />
   </section>
 
   <div class="cv-container">

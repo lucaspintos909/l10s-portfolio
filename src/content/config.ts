@@ -31,22 +31,6 @@ const projects = defineCollection({
     }),
 });
 
-// ─── Skills ─────────────────────────────────────────────────────────────────
-const skills = defineCollection({
-    type: 'data',
-    schema: z.object({
-        category: z.string(),
-        order: z.number().default(0),
-        items: z.array(
-            z.object({
-                name: z.string(),
-                level: z.enum(['beginner', 'intermediate', 'advanced', 'expert']).optional(),
-                icon: z.string().optional(),
-            })
-        ),
-    }),
-});
-
 // ─── Education ───────────────────────────────────────────────────────────────
 const education = defineCollection({
     type: 'content',
@@ -62,4 +46,4 @@ const education = defineCollection({
     }),
 });
 
-export const collections = { experience, projects, skills, education };
+export const collections = { experience, projects, education };

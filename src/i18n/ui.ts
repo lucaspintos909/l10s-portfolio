@@ -11,7 +11,6 @@ export const ui: Record<Locale, Record<string, string>> = {
         'nav.about': 'Sobre mí',
         'nav.experience': 'Experiencia',
         'nav.projects': 'Proyectos',
-        'nav.skills': 'Habilidades',
         'nav.education': 'Educación',
         'nav.contact': 'Contacto',
 
@@ -36,13 +35,6 @@ export const ui: Record<Locale, Record<string, string>> = {
         'projects.github': 'GitHub',
         'projects.demo': 'Demo',
         'projects.featured': 'Destacado',
-
-        // ── Skills ────────────────────────────────────────────────────────────
-        'skills.title': 'Habilidades',
-        'skills.level.beginner': 'Básico',
-        'skills.level.intermediate': 'Intermedio',
-        'skills.level.advanced': 'Avanzado',
-        'skills.level.expert': 'Experto',
 
         // ── Education ─────────────────────────────────────────────────────────
         'education.title': 'Educación',
@@ -75,7 +67,6 @@ export const ui: Record<Locale, Record<string, string>> = {
         'nav.about': 'About',
         'nav.experience': 'Experience',
         'nav.projects': 'Projects',
-        'nav.skills': 'Skills',
         'nav.education': 'Education',
         'nav.contact': 'Contact',
 
@@ -100,13 +91,6 @@ export const ui: Record<Locale, Record<string, string>> = {
         'projects.github': 'GitHub',
         'projects.demo': 'Demo',
         'projects.featured': 'Featured',
-
-        // ── Skills ────────────────────────────────────────────────────────────
-        'skills.title': 'Skills',
-        'skills.level.beginner': 'Beginner',
-        'skills.level.intermediate': 'Intermediate',
-        'skills.level.advanced': 'Advanced',
-        'skills.level.expert': 'Expert',
 
         // ── Education ─────────────────────────────────────────────────────────
         'education.title': 'Education',
