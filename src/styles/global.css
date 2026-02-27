@@ -10,6 +10,7 @@
     --color-text: theme('colors.zinc.900');
     --color-text-muted: theme('colors.zinc.500');
     --color-accent: theme('colors.accent.DEFAULT');
+    --color-link: theme('colors.accent.dark');
   }
 
   .dark {
@@ -19,6 +20,7 @@
     --color-text: theme('colors.zinc.50');
     --color-text-muted: theme('colors.zinc.400');
     --color-accent: theme('colors.accent.light');
+    --color-link: theme('colors.accent.light');
   }
 
   html {
@@ -102,12 +104,12 @@
 
   /* Links */
   .cv-link {
-    @apply inline-flex items-center gap-1 text-sm transition-colors duration-150;
-    color: var(--color-accent);
+    @apply inline-flex items-center gap-1 text-sm underline underline-offset-2 transition-colors duration-150;
+    color: var(--color-link);
   }
 
   .cv-link:hover {
-    @apply underline underline-offset-2;
+    color: var(--color-text);
   }
 
   /* Divider */
