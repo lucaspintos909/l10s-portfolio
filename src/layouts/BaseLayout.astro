@@ -4,6 +4,7 @@ import type { Locale } from "../i18n/index";
 import { ui } from "../i18n/ui";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
     lang: Locale;
@@ -77,6 +78,9 @@ const alternateUrl = canonicalUrl.replace(
 
         <!-- Slot for additional head elements -->
         <slot name="head" />
+
+        <!-- Vercel Web Analytics -->
+        <Analytics />
 
         <!-- Inline theme init script: prevents flash of wrong theme -->
         <script is:inline>
