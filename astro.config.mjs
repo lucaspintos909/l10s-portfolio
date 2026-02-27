@@ -6,7 +6,7 @@ import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://lucaspintos.vercel.app',
+  site: 'https://www.lucaspintos.link',
   output: 'static',
   build: {
     inlineStylesheets: 'always',
