@@ -41,7 +41,7 @@ export default {
                 },
             },
             fontFamily: {
-                sans: ['Geist Variable', 'system-ui', 'sans-serif'],
+                sans: ['"Geist"', '"Geist Variable"', 'system-ui', 'sans-serif'],
                 mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
             },
             fontSize: {
