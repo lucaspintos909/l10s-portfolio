@@ -1,8 +1,3 @@
-@import '@fontsource-variable/geist';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/500.css';
-@import '@fontsource/jetbrains-mono/700.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,7 +34,12 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-sans font-semibold tracking-tight;
     color: var(--color-text);
   }
@@ -52,9 +52,11 @@
   ::-webkit-scrollbar {
     @apply w-1.5;
   }
+
   ::-webkit-scrollbar-track {
     background: var(--color-bg);
   }
+
   ::-webkit-scrollbar-thumb {
     @apply rounded-full;
     background: var(--color-border);
@@ -62,6 +64,7 @@
 }
 
 @layer components {
+
   /* Container */
   .cv-container {
     @apply max-w-3xl mx-auto px-4 sm:px-6;
@@ -71,6 +74,7 @@
   .cv-section {
     @apply py-16;
   }
+
   .cv-section-title {
     @apply text-xs font-mono font-medium uppercase tracking-widest mb-8;
     color: var(--color-text-muted);
@@ -83,6 +87,7 @@
     background-color: var(--color-bg-secondary);
     box-shadow: theme('boxShadow.subtle');
   }
+
   .cv-card:hover {
     box-shadow: theme('boxShadow.card-hover');
   }
@@ -100,6 +105,7 @@
     @apply inline-flex items-center gap-1 text-sm transition-colors duration-150;
     color: var(--color-accent);
   }
+
   .cv-link:hover {
     @apply underline underline-offset-2;
   }
