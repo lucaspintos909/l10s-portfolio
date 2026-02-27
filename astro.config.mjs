@@ -8,6 +8,9 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: 'https://lucaspintos.vercel.app',
   output: 'static',
+  build: {
+    inlineStylesheets: 'always',
+  },
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({
