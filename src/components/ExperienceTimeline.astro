@@ -25,7 +25,7 @@ const sorted = [...entries].sort((a, b) => a.data.order - b.data.order);
     return (
       <li class="relative flex gap-6 pb-10 last:pb-0">
         <!-- Timeline track -->
-        <div class="relative flex flex-col items-center pt-1.5">
+        <div class="relative flex flex-col items-center2">
           <!-- Dot -->
           <div
             class="relative z-10 h-2.5 w-2.5 rounded-full border-2 flex-shrink-0 mt-0.5"
@@ -34,7 +34,7 @@ const sorted = [...entries].sort((a, b) => a.data.order - b.data.order);
           <!-- Line -->
           {!isLast && (
             <div
-              class="flex-1 w-px mt-2"
+              class="absolute top-4 bottom-[-2.5rem] left-1/2 -translate-x-1/2 w-px"
               style="background-color: var(--color-border);"
             />
           )}
