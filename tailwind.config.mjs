@@ -80,12 +80,42 @@ export default {
             typography: (theme) => ({
                 DEFAULT: {
                     css: {
-                        color: theme('colors.zinc.700'),
+                        color: 'var(--color-text-muted)',
                         fontFamily: theme('fontFamily.sans').join(', '),
+                        '--tw-prose-body': 'var(--color-text-muted)',
+                        '--tw-prose-headings': 'var(--color-text)',
+                        '--tw-prose-lead': 'var(--color-text-muted)',
+                        '--tw-prose-links': 'var(--color-text)',
+                        '--tw-prose-bold': 'var(--color-text)',
+                        '--tw-prose-counters': 'var(--color-text-muted)',
+                        '--tw-prose-bullets': 'var(--color-text-muted)',
+                        '--tw-prose-hr': 'var(--color-border)',
+                        '--tw-prose-quotes': 'var(--color-text)',
+                        '--tw-prose-quote-borders': 'var(--color-border)',
+                        '--tw-prose-captions': 'var(--color-text-muted)',
+                        '--tw-prose-code': 'var(--color-text)',
+                        '--tw-prose-pre-code': 'var(--color-text)',
+                        '--tw-prose-pre-bg': 'var(--color-bg)',
+                        '--tw-prose-th-borders': 'var(--color-border)',
+                        '--tw-prose-td-borders': 'var(--color-border)',
+
+                        a: {
+                            color: 'var(--color-text)',
+                            textDecoration: 'underline',
+                            fontWeight: '500',
+                            '&:hover': {
+                                color: 'var(--color-accent)',
+                            },
+                        },
+                        strong: {
+                            fontWeight: '600',
+                        },
                     },
                 },
             }),
         },
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 };

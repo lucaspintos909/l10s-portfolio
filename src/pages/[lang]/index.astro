@@ -51,10 +51,15 @@ const sortedEducation  = [...allEducation].sort((a, b) => a.data.order - b.data.
         </p>
       </div>
 
-      <!-- About paragraph -->
-      <p class="text-sm sm:text-base max-w-2xl leading-relaxed" style="color: var(--color-text-muted);">
-        {t('about.body')}
-      </p>
+      <!-- About paragraphs -->
+      <div class="flex flex-col gap-3">
+        <p class="text-sm sm:text-base max-w-2xl leading-relaxed" style="color: var(--color-text-muted);">
+          {t('about.body1')}
+        </p>
+        <p class="text-sm sm:text-base max-w-2xl leading-relaxed" style="color: var(--color-text-muted);">
+          {t('about.body2')}
+        </p>
+      </div>
 
       <!-- CTA buttons -->
       <div class="flex flex-wrap items-center gap-3 pt-2">
