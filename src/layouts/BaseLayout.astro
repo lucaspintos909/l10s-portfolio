@@ -1,9 +1,14 @@
 ---
 import "../styles/global.css";
+import geistFontUrl from "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url";
+import jetbrains400Url from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2?url";
+import jetbrains500Url from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2?url";
+import jetbrains700Url from "@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff2?url";
 import type { Locale } from "../i18n/index";
 import { ui } from "../i18n/ui";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
     lang: Locale;
@@ -36,6 +41,36 @@ const alternateUrl = canonicalUrl.replace(
 
         <!-- Favicon -->
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+        <!-- Preload Fonts -->
+        <link
+            rel="preload"
+            href={geistFontUrl}
+            as="font"
+            type="font/woff2"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="preload"
+            href={jetbrains400Url}
+            as="font"
+            type="font/woff2"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="preload"
+            href={jetbrains500Url}
+            as="font"
+            type="font/woff2"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="preload"
+            href={jetbrains700Url}
+            as="font"
+            type="font/woff2"
+            crossorigin="anonymous"
+        />
 
         <!-- Primary SEO -->
         <title>{title}</title>
@@ -97,5 +132,6 @@ const alternateUrl = canonicalUrl.replace(
             <slot />
         </main>
         <Footer lang={lang} />
+        <Analytics />
     </body>
 </html>
